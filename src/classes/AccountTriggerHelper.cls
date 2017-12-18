@@ -15,6 +15,11 @@ public with sharing class AccountTriggerHelper {
 	}
 	
 	public void handlePrintAccountMap(Map<ID, Account> accountMap, String triggerType){
-		
+		System.debug(' \n\n ------------------------------- ');
+		System.debug('Trigger Type : ' + triggerType);
+		for(ID aId : accountMap.keySet()){
+			System.debug(accountMap.get(aId));
+		}
+		System.debug(' -----------------------------  \n\n');
 	}
-}   
+}
