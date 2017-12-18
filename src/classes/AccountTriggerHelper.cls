@@ -4,7 +4,7 @@
  * email.
  */
 public class AccountTriggerHelper  {
-	public static void handlePrintAccount(List<Account> accountsList, String triggerType){
+	public void handlePrintAccount(List<Account> accountsList, String triggerType){
 		System.debug(' \n\n ------------------------------- ');
 		System.debug('Trigger Type : ' + triggerType);
 		for(Account account : accountList){
