@@ -1,9 +1,10 @@
 trigger AccountTrigger on Account (Before insert, Before update, After insert, After Update, Before Delete) {
+	AccountTriggerHelper acTriggerHelper = new AccountTriggerHelper();
 	if((Trigger.isInsert || Trigger.isUpdate) && Trigger.isBefore ){
-		AccountTriggerHelper.handlePrintAccount(Trigger.New, 'Before Trigger :: New Value');
+		acTriggerHelper.handlePrintAccount(Trigger.New, 'Before Trigger :: New Value');
 	}else if(Trigger.isUpdate && Trigger.isBefore){
-		AccountTriggerHelper.handlePrintAccount(Trigger.Old, 'Before Trigger Update Old');
+		acTriggerHelper.handlePrintAccount(Trigger.Old, 'Before Trigger Update Old');
 	}else if(Trigger.isDelete){
-		AccountTriggerHelper.handlePrintAccount(Trigger.old, 'Delete Trigger');
+		acTriggerHelper.handlePrintAccount(Trigger.old, 'Delete Trigger');
 	}
 }
