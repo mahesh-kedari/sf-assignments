@@ -1,0 +1,16 @@
+<apex:page sidebar="false" showHeader="false" standardController="Account">
+  <!-- Begin Default Content REMOVE THIS -->
+  <apex:pageBlock title="Hello!!!">
+      <p>You are viewing the {!account.name} account. </p>
+  </apex:pageBlock>
+  <h2 id="para">Base Text</h2>
+  <script>
+         var elem = document.getElementById('para');
+         elem.style.color = 'red';
+  </script>
+  <h1>Congratulations</h1>
+  This is your new Page
+<br />
+   Hello World
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>
