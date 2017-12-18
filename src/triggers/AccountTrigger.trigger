@@ -1,4 +1,4 @@
-trigger AccountTrigger on Account (Before insert, Before update, After insert, After update, Before delete) {
+trigger AccountTrigger on Account (Before insert, Before update, After insert, After Update, Before Delete) {
 	if((Trigger.isInsert || Trigger.isUpdate) && Trigger.isBefore ){
 		AccountTriggerHelper.handlePrintAccount(Trigger.New, 'Before Trigger :: New Value');
 	}else if(Trigger.isUpdate && Trigger.isBefore){
