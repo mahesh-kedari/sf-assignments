@@ -22,4 +22,23 @@ public with sharing class AccountTriggerHelper {
 		}
 		System.debug(' -----------------------------  \n\n');
 	}
+	
+	public void cloneAccount(List<Account> accountsList){
+		System.debug('Clone functionality called..!!');
+        List<Account> newAccounts = new List<Account>();
+        
+        for(Account ac : accountsList){
+            System.debug('Looping through account new event');
+            if(!ac.isClone()){
+               System.debug('Creating New Account');
+                Account newAc = ac.clone(false, true, false, false);
+                newAccounts.add(newAc);
+            }else{
+              System.debug('Not Creating new account');
+            }
+        }
+        if(newAccounts.size()>0){
+        	insert newAccounts;
+        }
+	} 
 }
