@@ -1,44 +1,51 @@
+/**
+* Account Trigger helper
+*/
 public with sharing class AccountTriggerHelper {
- /**
- * Email services are automated processes that use Apex classes
- * to process the contents, headers, and attachments of inbound
- * email.
- */
-
-	public void handlePrintAccount(List<Account> accountList, String triggerType){
-		System.debug(' \n\n ------------------------------- ');
-		System.debug('Trigger Type : ' + triggerType);
-		for(Account account : accountList){
-			System.debug(account.name);
-		}		
-		System.debug(' -----------------------------  \n\n');
-	}
-	
-	public void handlePrintAccountMap(Map<ID, Account> accountMap, String triggerType){
-		System.debug(' \n\n ------------------------------- ');
-		System.debug('Trigger Type : ' + triggerType);
-		for(ID aId : accountMap.keySet()){
-			System.debug(accountMap.get(aId));
-		}
-		System.debug(' -----------------------------  \n\n');
-	}
-	
-	public void cloneAccount(List<Account> accountsList){
-		System.debug('Clone functionality called..!!');
-        List<Account> newAccounts = new List<Account>();
-        
-        for(Account ac : accountsList){
-            System.debug('Looping through account new event');
-            if(!ac.isClone()){
-               System.debug('Creating New Account');
-                Account newAc = ac.clone(false, true, false, false);
-                newAccounts.add(newAc);
-            }else{
-              System.debug('Not Creating new account');
-            }
-        }
-        if(newAccounts.size()>0){
-        	insert newAccounts;
-        }
-	} 
+ 	
+ 	//Handler Object for business Operations
+ 	AccountTriggerHelperHandler handler = new AccountTriggerHelperHandler();
+ 	
+ 	/**
+ 	* On Before Insert Trigger
+ 	*/
+ 	public void onBeforeInsert(List<Account> accountsList){
+ 		handler.handlePrintAccount(Trigger.new, 'Before Trigger :: New Value');
+ 	}
+ 	
+ 	/**
+ 	* On After Insert Trigger
+ 	*/
+ 	public void onAfterInsert(){
+ 		handler.cloneAccount(Trigger.new);
+ 	}
+ 	
+ 	
+ 	/**
+ 	* On Before Update Trigger 
+ 	*/
+ 	public void onBeforeUpdate(){
+ 		handler.handlePrintAccount(Trigger.Old, 'Before Trigger Update Old');
+        handler.handlePrintAccountMap(Trigger.OldMap, 'Before Trigger Update Old Map');
+ 	}
+ 	
+ 	
+ 	/**
+ 	* On After Update Trigger
+ 	*/
+ 	public void onAfterUpdate(){
+ 		handler.handlePrintAccount(Trigger.Old, 'After Trigger Update Old');
+        handler.handlePrintAccountMap(Trigger.OldMap, 'After Trigger Update Old Map');
+        handler.handlePrintAccount(Trigger.New, 'After Trigger Update Old');
+        handler.handlePrintAccountMap(Trigger.NewMap, 'After Trigger Update Old Map');
+ 	}
+ 	
+ 	
+ 	/**
+ 	* On Before Delete Trigger
+ 	*/
+ 	public void onBeforeDelete(){
+ 		handler.handlePrintAccount(Trigger.old, 'Before Trigger Delete old');
+ 		handler.handlePrintAccountMap(Trigger.OldMap, 'After Trigger Delete Old Map');
+ 	}
 }
